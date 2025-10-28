@@ -9,7 +9,7 @@ class Task {
     return {
       'id': id,
       'name': name,
-      'concluded': concluded,
+      'concluded': concluded ? 1 : 0,
     };
   }
 
@@ -17,7 +17,7 @@ class Task {
     return Task(
       id: map['id'],
       name: map['nome'], 
-      concluded: map['concluded'],
+      concluded: map['concluded'] == 1,
     );
   }
 }
