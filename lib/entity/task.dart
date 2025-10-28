@@ -16,7 +16,7 @@ class Task {
   factory Task.fromMap(Map<String, dynamic> map) {
     return Task(
       id: map['id'],
-      name: map['nome'], 
+      name: map['name'], 
       concluded: map['concluded'] == 1,
     );
   }

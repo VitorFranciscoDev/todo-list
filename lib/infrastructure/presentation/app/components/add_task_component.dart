@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AddTaskComponent extends StatelessWidget {
-  const AddTaskComponent({ super.key, required this.controller, required this.label, this.error, required this.cancel, required this.add });
+  const AddTaskComponent({ super.key, required this.controller, required this.hint, this.error, required this.cancel, required this.add });
   final TextEditingController controller;
-  final String label;
+  final String hint;
   final String? error;
   final VoidCallback cancel;
   final VoidCallback add;
@@ -13,15 +13,15 @@ class AddTaskComponent extends StatelessWidget {
     final theme = Theme.of(context);
 
     return AlertDialog(
-      backgroundColor: theme.colorScheme.background,
-      title: Text("Add Task", style: TextStyle(color: theme.colorScheme.primary)),
+      backgroundColor: theme.colorScheme.primary,
+      title: Text("Add Task", style: TextStyle(color: theme.colorScheme.background)),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             controller: controller,
             decoration: InputDecoration(
-              labelText: label,
+              hintText: hint,
               errorText: error,
               suffixIcon: controller.text.isNotEmpty 
                 ? IconButton(
@@ -30,33 +30,33 @@ class AddTaskComponent extends StatelessWidget {
                   ) 
                 : null,
               enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: theme.colorScheme.primary,
-                width: 2,
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: theme.colorScheme.background,
+                  width: 2,
+                ),
               ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: theme.colorScheme.primary,
-                width: 2,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: theme.colorScheme.background,
+                  width: 2,
+                ),
               ),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: theme.colorScheme.primary,
-                width: 2,
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: theme.colorScheme.background,
+                  width: 2,
+                ),
               ),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: theme.colorScheme.primary,
-                width: 2,
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: theme.colorScheme.background,
+                  width: 2,
+                ),
               ),
-            ),
             ),
           ),
           const SizedBox(height: 10),
@@ -65,11 +65,11 @@ class AddTaskComponent extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () => cancel(), 
-                child: Text("Cancel", style: TextStyle(color: theme.colorScheme.primary)),
+                child: Text("Cancel", style: TextStyle(color: theme.colorScheme.background)),
               ),
               TextButton(
                 onPressed: () => add(), 
-                child: Text("Add", style: TextStyle(color: theme.colorScheme.primary)),
+                child: Text("Add", style: TextStyle(color: theme.colorScheme.background)),
               ),
             ],
           ),

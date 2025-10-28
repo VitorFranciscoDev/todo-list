@@ -40,12 +40,52 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: Container(
                   width: 320,
-                  height: 600,
+                  height: 480,
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primary,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(),
                   ),
+                  child: provider.tasks != null
+                    ? ListView.builder(
+                    shrinkWrap: true,
+                    physics: AlwaysScrollableScrollPhysics(),
+                    itemCount: provider.tasks!.length,
+                    itemBuilder: (context, index) {
+                      final task = provider.tasks![index];
+                      return Padding(
+                        padding: EdgeInsets.only(right: 20, left: 20, bottom: 20),
+                        child: Container(
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              width: 2,
+                              color: theme.colorScheme.primary,
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 15),
+                              Icon(Icons.airplanemode_active, color: theme.colorScheme.primary, size: 18),
+                              const SizedBox(width: 10),
+                              Text(
+                                task.name, 
+                                style: TextStyle(
+                                  color: theme.colorScheme.primary,
+                                  fontFamily: "Times New Roman",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                  : Center(child: Text("No Tasks.")),
                 ),
               ),
             ],
@@ -57,9 +97,12 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
           context: context, 
           builder: (context) => AddTaskComponent(
             controller: _controller,
-            label: "Name",
+            hint: "Name",
             error: provider.errorTask,
-            cancel: () => Navigator.of(context).pop(),
+            cancel: () {
+              Navigator.of(context).pop();
+              provider.clearError();
+            },
             add: () async {
               final isValid = provider.validateTask(_controller.text);
 
@@ -75,7 +118,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                   context: context, 
                   builder: (context) => AlertDialogComponent(
                     title: "Task Created Succesfully", 
-                    fn2: () => Navigator.of(context).pop(), 
+                    fn2: () {
+                      Navigator.of(context).pop();
+                      _controller.clear();
+                    }, 
                     fn2Message: "Ok",
                   ),
                 );
@@ -84,15 +130,20 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                   context: context, 
                   builder: (context) => AlertDialogComponent(
                     title: result, 
-                    fn2: () => Navigator.of(context).pop(), 
+                    fn2: () {
+                      Navigator.of(context).pop();
+                      _controller.clear();
+                    },
                     fn2Message: "Ok",
                   ),
                 );
               }
+
+              provider.clearError();
             },
           ),
         ),
-        child: Icon(Icons.add, color: Colors.black),
+        child: Icon(Icons.add, color: theme.colorScheme.background),
       ),
     );
   }

@@ -3,7 +3,9 @@ import 'package:to_do_list/entity/task.dart';
 import 'package:to_do_list/module/task/task_usecase.dart';
 
 class ToDoListProvider with ChangeNotifier {
-  ToDoListProvider({ required this.taskUseCase });
+  ToDoListProvider({ required this.taskUseCase }) {
+    getAllTasks();
+  }
 
   final TaskUseCase taskUseCase;
 
@@ -18,8 +20,14 @@ class ToDoListProvider with ChangeNotifier {
 
   bool validateTask(String name) {
     _errorTask = taskUseCase.validateName(name);
+    notifyListeners();
 
     return _errorTask == null;
+  }
+
+  void clearError() {
+    _errorTask = null;
+    notifyListeners();
   }
 
   Future<String?> addTask(Task task) async {
@@ -85,7 +93,7 @@ class ToDoListProvider with ChangeNotifier {
     }
   }
 
-  Future<String?> getAllTasks(Task task) async {
+  Future<String?> getAllTasks() async {
     _isLoading = true;
     notifyListeners();
 
