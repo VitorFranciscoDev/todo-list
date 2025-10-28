@@ -48,7 +48,7 @@ class TaskRepository implements ITaskRepository {
   }
 
   @override
-  Future<List<Task>> getAllTasks() async {
+  Future<List<Task>?> getAllTasks() async {
     final db = await database.database;
 
     try {

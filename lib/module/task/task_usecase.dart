@@ -6,6 +6,8 @@ class TaskUseCase {
 
   final ITaskRepository taskRepository;
 
+  String? validateName(String name) => name.isEmpty ? "Name cannot be blank" : null;
+
   Future<int> addTask(Task task) async {
     try {
       return await taskRepository.addTask(task);
