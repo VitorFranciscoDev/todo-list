@@ -35,7 +35,7 @@ class Task {
     };
   }
 
-  factory Task.fromJson(Map<String, dynamic> map) {
+  factory Task.fromMap(Map<String, dynamic> map) {
     return Task(
       id: map['id'],
       uid: map['uid'],
