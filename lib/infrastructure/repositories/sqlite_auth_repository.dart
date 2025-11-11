@@ -1,8 +1,8 @@
 import 'package:to_do_list/domain/entities/user.dart';
-import 'package:to_do_list/domain/repositories/user_repository.dart';
+import 'package:to_do_list/domain/repositories/auth_repository.dart';
 import 'package:to_do_list/infrastructure/database/database.dart';
 
-class SQLiteUserRepository implements UserRepository {
+class SQLiteUserRepository implements AuthRepository {
   final database = ToDoListDatabase();
 
   @override
@@ -18,7 +18,7 @@ class SQLiteUserRepository implements UserRepository {
 
       return User.fromMap(user.first);
     } catch(e) {
-      throw Exception("Error in Login SQLite User Repository");
+      throw Exception("Error in Login SQLite Auth Repository: $e");
     }
   }
 
@@ -35,7 +35,7 @@ class SQLiteUserRepository implements UserRepository {
 
       return User.fromMap(user.first);
     } catch(e) {
-      throw Exception("Error in Get User By Email SQLite User Repository");
+      throw Exception("Error in Get User By Email SQLite Auth Repository: $e");
     }
   }
 
@@ -46,7 +46,7 @@ class SQLiteUserRepository implements UserRepository {
 
       return await db.insert('users', user.toMap());
     } catch(e) {
-      throw Exception("Error in Add User SQLite User Repository");
+      throw Exception("Error in Add User SQLite Auth Repository: $e");
     }
   }
 
@@ -61,7 +61,7 @@ class SQLiteUserRepository implements UserRepository {
         whereArgs: [id],
       );
     } catch(e) {
-      throw Exception("Error in Delete User SQLite User Repository");
+      throw Exception("Error in Delete User SQLite Auth Repository: $e");
     }
   }
 
@@ -77,7 +77,7 @@ class SQLiteUserRepository implements UserRepository {
         whereArgs: [user.id],
       );
     } catch(e) {
-      throw Exception("Error in Update User SQLite User Repository");
+      throw Exception("Error in Update User SQLite Auth Repository: $e");
     }
   }
 }

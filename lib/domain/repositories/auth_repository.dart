@@ -1,6 +1,6 @@
 import 'package:to_do_list/domain/entities/user.dart';
 
-abstract class UserRepository {
+abstract class AuthRepository {
   Future<User?> login(String email, String password);
   Future<User?> getUserByEmail(String email);
   Future<int> addUser(User user);

@@ -27,7 +27,7 @@ class SQLiteTaskRepository implements TaskRepository {
         whereArgs: [id],
       );
     } catch(e) {
-      throw Exception("Error in Delete Task SQLite Task Repository");
+      throw Exception("Error in Delete Task SQLite Task Repository: $e");
     }
   }
 
@@ -43,7 +43,7 @@ class SQLiteTaskRepository implements TaskRepository {
         whereArgs: [task.id],
       );
     } catch(e) {
-      throw Exception("Error in Update Task SQLite Task Repository");
+      throw Exception("Error in Update Task SQLite Task Repository: $e");
     }
   }
 
@@ -60,7 +60,7 @@ class SQLiteTaskRepository implements TaskRepository {
 
       return tasks.map((task) => Task.fromMap(task)).toList();
     } catch(e) {
-      throw Exception("Error in Get All Tasks SQLite Task Repository");
+      throw Exception("Error in Get All Tasks SQLite Task Repository: $e");
     }
   }
 }

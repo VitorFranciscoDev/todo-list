@@ -1,16 +1,16 @@
 import 'package:to_do_list/domain/entities/user.dart';
-import 'package:to_do_list/domain/repositories/user_repository.dart';
+import 'package:to_do_list/domain/repositories/auth_repository.dart';
 
-class UserUseCases {
-  const UserUseCases({ required this.repository });
+class AuthUseCases {
+  const AuthUseCases({ required this.repository });
 
-  final UserRepository repository;
+  final AuthRepository repository;
 
   Future<User?> login(String email, String password) async {
     try {
       return await repository.login(email, password);
     } catch(e) {
-      throw Exception("Error in Login User Use Cases: $e");
+      throw Exception("Error in Login Auth Use Cases: $e");
     }
   }
 
@@ -18,7 +18,7 @@ class UserUseCases {
     try {
       return await repository.getUserByEmail(email);
     } catch(e) {
-      throw Exception("Error in Get User By Email User Use Cases: $e");
+      throw Exception("Error in Get User By Email Auth Use Cases: $e");
     }
   }
 
@@ -26,7 +26,7 @@ class UserUseCases {
     try {
       return await repository.addUser(user);
     } catch(e) {
-      throw Exception("Error in Add User User Use Cases: $e");
+      throw Exception("Error in Add User Auth Use Cases: $e");
     }
   }
 
@@ -34,7 +34,7 @@ class UserUseCases {
     try {
       return await repository.deleteUser(id);
     } catch(e) {
-      throw Exception("Error in Delete User User Use Cases: $e");
+      throw Exception("Error in Delete User Auth Use Cases: $e");
     }
   }
 
@@ -42,7 +42,7 @@ class UserUseCases {
     try {
       return await repository.updateUser(user);
     } catch(e) {
-      throw Exception("Error in Update User User Use Cases: $e");
+      throw Exception("Error in Update User Auth Use Cases: $e");
     }
   }
 }
