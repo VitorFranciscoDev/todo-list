@@ -43,6 +43,14 @@ class AuthProvider with ChangeNotifier {
     return _errorName == null && _errorEmail == null && _errorPassword == null;
   }
 
+  void clearErrors() {
+    _errorName = null;
+    _errorEmail = null;
+    _errorPassword = null;
+
+    notifyListeners();
+  }
+
   Future<User?> login(String email, String password) async {
     try {
       return useCases.login(email, password);

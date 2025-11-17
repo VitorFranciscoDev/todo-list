@@ -19,7 +19,7 @@ class BottomNavigator extends StatelessWidget {
     final index = context.watch<BottomNavigatorProvider>().index;
 
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
       body: _pages[index],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -39,7 +39,7 @@ class BottomNavigator extends StatelessWidget {
           child: BottomNavigationBar(
             currentIndex: index,
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.grey,
+            backgroundColor: const Color.fromARGB(255, 205, 205, 205),
             selectedItemColor: Colors.redAccent,
             unselectedItemColor: Colors.red,
             selectedFontSize: 12,

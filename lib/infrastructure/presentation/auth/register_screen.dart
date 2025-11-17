@@ -41,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final user = User(name: _controllerName.text, email: _controllerEmail.text, password: _controllerPassword.text);
 
     try {
-      // Call Provider to Log In
+      // Call Provider to Add User In DB
       final index = await provider.addUser(user);
 
       if(index > 0) {
@@ -50,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
         // Clean Fields and Errors
         clearFields();
-
+        provider.clearErrors();
       } else {
         // User Not Found
         ScaffoldMessenger.of(context).showSnackBar(
@@ -99,6 +99,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Name
+              TextFieldWidget(
+                controller: _controllerName, 
+                hint: "John",
+                error: provider.errorName,
+              ),
+
+              const SizedBox(height: 10),
+
               // Email
               TextFieldWidget(
                 controller: _controllerEmail, 
@@ -120,7 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               // Login Button
               ButtonWidget(
                 function: _addUser, 
-                message: "Log In",
+                message: "Sign Up",
               ),
 
               const SizedBox(height: 20),
@@ -138,14 +147,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
               const SizedBox(height: 20),
 
+              // Navigate to Login Button
               OutlinedButtonWidget(
                 function: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                   clearFields();
-                  //provider.clearErrors();
+                  provider.clearErrors();
                 }, 
-                message1: "Doesn't have an account? ", 
-                message2: "Sign Up",
+                message1: "Already have an account? ", 
+                message2: "Sign In",
               ),
             ],
           ),

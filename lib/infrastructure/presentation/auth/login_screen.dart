@@ -38,15 +38,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       // Call Provider to Log In
-      final user = provider.login(_controllerEmail.text, _controllerPassword.text);
+      final user = await provider.login(_controllerEmail.text, _controllerPassword.text);
 
+      // If user exists
       if(user != null) {
         // Navigate to Home Screen
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavigator()));
 
         // Clean Fields and Errors
         clearFields();
-
+        provider.clearErrors();
       } else {
         // User Not Found
         ScaffoldMessenger.of(context).showSnackBar(
@@ -116,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
               // Login Button
               ButtonWidget(
                 function: _login, 
-                message: "Log In",
+                message: "Sign In",
               ),
 
               const SizedBox(height: 20),
@@ -134,11 +135,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 20),
 
+              // Navigate to Register Button
               OutlinedButtonWidget(
                 function: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
                   clearFields();
-                  //provider.clearErrors();
+                  provider.clearErrors();
                 }, 
                 message1: "Doesn't have an account? ", 
                 message2: "Sign Up",
