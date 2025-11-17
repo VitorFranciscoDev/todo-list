@@ -121,7 +121,7 @@ class _TodayScreenState extends State<TodayScreen> {
                             
                             const SizedBox(width: 30),
 
-                            Text(task.title),
+                            Text("AAAAAAAAAAAAAaa"),
                           ],
                         ),
                       ],
