@@ -97,11 +97,35 @@ class _TodayScreenState extends State<TodayScreen> {
         
               Expanded(
                 child: ListView.separated(
-                  itemCount: tasks.length,
-                  separatorBuilder: (context, index) =>
-                      Divider(color: Colors.grey[400]),
+                  itemCount: 1,
+                  separatorBuilder: (context, index) => Divider(color: Colors.grey[400]),
                   itemBuilder: (context, index) {
-                    return Column();
+                    final task = tasks[index];
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 20,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(
+                                  width: 2,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                            
+                            const SizedBox(width: 30),
+
+                            Text(task.title),
+                          ],
+                        ),
+                      ],
+                    );
                   },
                 ),
               ),

@@ -21,7 +21,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => BottomNavigatorProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider(useCases: authUseCases)),
-        ChangeNotifierProvider(create: (_) => TasksProvider()),
+        ChangeNotifierProvider(create: (_) => TasksProvider(useCases: taskUseCases)),
       ],
       child: const MyApp(),
     ),

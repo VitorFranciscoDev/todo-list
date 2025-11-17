@@ -3,17 +3,35 @@ import 'package:to_do_list/domain/entities/user.dart';
 import 'package:to_do_list/domain/usecases/auth_usecases.dart';
 
 class AuthProvider with ChangeNotifier {
+  // Constructor
   AuthProvider({ required this.useCases });
   final AuthUseCases useCases;
 
+  // App's User
   User? _user;
   User? get user => _user;
 
+  // Is Initialized Boolean
   bool _isInitialized = false;
   bool get isInitialized => _isInitialized;
 
+  // Setter Function
+  void _setInitialized(bool initialized) {
+    _isInitialized = initialized;
+    notifyListeners();
+  }
+
+  // Is Loading Boolean
   bool _isLoading = false;
   bool get isLoading => _isLoading;
+
+  // Setter Function
+  void _setLoading(bool loading) {
+    _isLoading = loading;
+    notifyListeners();
+  }
+
+  // Errors
 
   String? _errorName;
   String? get errorName => _errorName;
@@ -24,6 +42,7 @@ class AuthProvider with ChangeNotifier {
   String? _errorPassword;
   String? get errorPassword => _errorPassword;
 
+  // Login Validation
   bool validateLoginFields(String email, String password) {
     _errorEmail = useCases.validateEmail(email);
     _errorPassword = useCases.validatePassword(password);
@@ -33,6 +52,7 @@ class AuthProvider with ChangeNotifier {
     return _errorEmail == null && _errorPassword == null;
   }
 
+  // Register Validation
   bool validateRegisterFields(String name, String email, String password) {
     _errorName = useCases.validateName(name);
     _errorEmail = useCases.validateEmail(email);
@@ -43,6 +63,7 @@ class AuthProvider with ChangeNotifier {
     return _errorName == null && _errorEmail == null && _errorPassword == null;
   }
 
+  // Clear Errors
   void clearErrors() {
     _errorName = null;
     _errorEmail = null;
@@ -51,14 +72,21 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // Login in App
   Future<User?> login(String email, String password) async {
+    _setLoading(true);
+    
     try {
-      return useCases.login(email, password);
+      _user = await useCases.login(email, password);
+      return _user;
     } catch(e) {
       return null;
+    } finally {
+      _setLoading(false);
     }
   }
 
+  // Get User By Email [Register Validation]
   Future<User?> getUserByEmail(String email) async {
     try {
       return useCases.getUserByEmail(email);
@@ -67,6 +95,7 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  // Add User in DB
   Future<int> addUser(User user) async {
     try {
       return useCases.addUser(user);
@@ -75,6 +104,7 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  // Delete User from DB
   Future<int> deleteUser(int? id) async {
     try {
       return useCases.deleteUser(id);
@@ -83,6 +113,7 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  // Update User from DB
   Future<int> updateUser(User user) async {
     try {
       return useCases.updateUser(user);
