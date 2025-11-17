@@ -25,10 +25,22 @@ class AuthProvider with ChangeNotifier {
   String? get errorPassword => _errorPassword;
 
   bool validateLoginFields(String email, String password) {
+    _errorEmail = useCases.validateEmail(email);
+    _errorPassword = useCases.validatePassword(password);
 
     notifyListeners();
 
     return _errorEmail == null && _errorPassword == null;
+  }
+
+  bool validateRegisterFields(String name, String email, String password) {
+    _errorName = useCases.validateName(name);
+    _errorEmail = useCases.validateEmail(email);
+    _errorPassword = useCases.validatePassword(password);
+    
+    notifyListeners();
+
+    return _errorName == null && _errorEmail == null && _errorPassword == null;
   }
 
   Future<User?> login(String email, String password) async {

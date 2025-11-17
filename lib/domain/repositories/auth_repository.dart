@@ -1,5 +1,6 @@
 import 'package:to_do_list/domain/entities/user.dart';
 
+// Auth Contracts
 abstract class AuthRepository {
   Future<User?> login(String email, String password);
   Future<User?> getUserByEmail(String email);

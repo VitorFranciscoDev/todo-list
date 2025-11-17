@@ -1,5 +1,6 @@
 import 'package:sqflite/sqlite_api.dart';
 
+// Tasks SQLite Table
 class TasksTable {
   static Future<void> createTable(Database db) async {
     await db.execute('''
@@ -8,7 +9,7 @@ class TasksTable {
         uid INTEGER NOT NULL,
         color TEXT NOT NULL,
         title TEXT NOT NULL,
-        desc TEXT NOT NULL,
+        description TEXT NOT NULL,
         startTime TEXT,
         endTime TEXT,
         local TEXT,

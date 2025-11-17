@@ -1,11 +1,13 @@
 import 'package:to_do_list/domain/entities/task.dart';
 import 'package:to_do_list/domain/repositories/task_repository.dart';
 
+// Task Use Cases
 class TaskUseCases {
+  // Constructor
   const TaskUseCases({ required this.repository });
-
   final TaskRepository repository;
 
+  // Add Task
   Future<int> addTask(Task task) async {
     try {
       return await repository.addTask(task);
@@ -14,6 +16,7 @@ class TaskUseCases {
     }
   }
 
+  // Delete Task
   Future<int> deleteTask(int? id) async {
     try {
       return await repository.deleteTask(id);
@@ -21,7 +24,8 @@ class TaskUseCases {
       throw Exception("Error in Delete Task Task Use Cases: $e");
     }
   }
-
+  
+  // Update Task
   Future<int> updateTask(Task task) async {
     try {
       return await repository.updateTask(task);
@@ -30,6 +34,7 @@ class TaskUseCases {
     }
   }
 
+  // Get All Tasks
   Future<List<Task>> getAllTasks(int? uid) async {
     try {
       return await repository.getAllTasks(uid);
