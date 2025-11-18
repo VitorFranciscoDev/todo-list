@@ -1,20 +1,17 @@
 import 'package:to_do_list/domain/entities/user.dart';
 import 'package:to_do_list/domain/repositories/auth_repository.dart';
 
-// Auth Use Cases
 class AuthUseCases {
   // Constructor
   const AuthUseCases({ required this.repository });
   final AuthRepository repository;
 
   // Validations
-
   String? validateName(String name) => name.isEmpty ? "Name cannot be blank" : null;
-
   String? validateEmail(String email) => !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email) ? "Email Invalid" : null;
-
   String? validatePassword(String password) => password.length < 8 ? "Password needs to have 8 characters" : null;
-  
+
+  // Repository
   // Login
   Future<User?> login(String email, String password) async {
     try {

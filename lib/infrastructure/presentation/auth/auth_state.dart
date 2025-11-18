@@ -5,11 +5,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:to_do_list/domain/entities/user.dart';
 import 'package:to_do_list/domain/usecases/auth_usecases.dart';
 
+// Auth State
 class AuthProvider with ChangeNotifier {
   // Constructor
   AuthProvider({ required this.useCases }) { loadUser(); }
   final AuthUseCases useCases;
 
+  // Shared Preferences Key
   static const userKey = "user";
 
   // App's User
@@ -37,7 +39,6 @@ class AuthProvider with ChangeNotifier {
   }
 
   // Errors
-
   String? _errorName;
   String? get errorName => _errorName;
 
@@ -77,6 +78,7 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // Load User from Shared Preferences
   Future<void> loadUser() async {
     _setInitialized(true);
 
@@ -95,23 +97,20 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  // Use Cases
   // Login in App
   Future<User?> login(String email, String password) async {
     _setLoading(true);
     
     try {
-      final loginUser = await useCases.login(email, password);
-      
-      if(loginUser != null) {
-        _user = loginUser;
+      _user = await useCases.login(email, password);
 
+      if(_user != null) {
         final prefs = await SharedPreferences.getInstance();
-        await prefs.setString(userKey, jsonEncode(loginUser.toMap()));
-
-        return _user;
+        await prefs.setString(userKey, jsonEncode(_user!.toMap()));
       }
 
-      return null;
+      return _user;
     } catch(e) {
       return null;
     } finally {

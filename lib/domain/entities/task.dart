@@ -2,24 +2,26 @@
 class Task {
   final int? id;
   final int uid; // User's ID
+  final bool concluded;
   final String title;
   final String description;
+  final String local;
   final String date;
   final DateTime startTime;
   final DateTime endTime;
-  final String local;
   final int priority;
 
   // Constructor
   const Task({
     this.id,
     required this.uid,
+    required this.concluded,
     required this.title,
     required this.description,
+    required this.local,
     required this.date,
     required this.startTime,
     required this.endTime,
-    required this.local,
     required this.priority,
   });
 
@@ -28,12 +30,13 @@ class Task {
     return {
       'id': id,
       'uid': uid,
+      'concluded': concluded ? 1 : 0,
       'title': title,
       'description': description,
+      'local': local,
       'date': date,
       'startTime': startTime,
       'endTime': endTime,
-      'local': local,
       'priority': priority,
     };
   }
@@ -43,12 +46,13 @@ class Task {
     return Task(
       id: map['id'],
       uid: map['uid'], 
+      concluded: map['concluded'] == 1,
       title: map['title'], 
       description: map['description'],
+      local: map['local'],
       date: map['date'], 
       startTime: map['startTime'], 
-      endTime: map['endTime'], 
-      local: map['local'], 
+      endTime: map['endTime'],  
       priority: map['priority'],
     );
   }

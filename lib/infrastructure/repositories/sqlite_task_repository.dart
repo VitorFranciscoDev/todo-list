@@ -53,7 +53,7 @@ class SQLiteTaskRepository implements TaskRepository {
 
   // Query in DB [UID]
   @override
-  Future<List<Task>> getAllTasks(int? uid) async {
+  Future<List<Task>> getAllTasks(int uid) async {
     try {
       final db = await database.database;
 

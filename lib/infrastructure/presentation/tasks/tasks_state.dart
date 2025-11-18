@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:to_do_list/domain/entities/task.dart';
 import 'package:to_do_list/domain/usecases/task_usecases.dart';
 
+// Tasks State
 class TasksProvider with ChangeNotifier {
   // Constructor
   TasksProvider({ required this.useCases });
@@ -36,7 +37,6 @@ class TasksProvider with ChangeNotifier {
   }
 
   // Errors
-
   String? _errorTitle;
   String? get errorTitle => _errorTitle;
 
@@ -46,20 +46,35 @@ class TasksProvider with ChangeNotifier {
   String? _errorDate;
   String? get errorDate => _errorDate;
 
-  String? _errorTime;
-  String? get errorTime => _errorTime;
+  String? _errorStartTime;
+  String? get errorStartTime => _errorStartTime;
+
+  String? _errorEndTime;
+  String? get errorEndTime => _errorEndTime;
 
   String? _errorLocal;
   String? get errorLocal => _errorLocal;
 
+  bool validateTask(String title, String description, String date, String startTime, String endTime, String local) {
+    
+
+    notifyListeners();
+
+    return _errorTitle == null && _errorDescription == null && _errorDate == null && _errorStartTime == null && _errorEndTime == null && _errorLocal == null;
+  }
+
+  // Clean All Errors
   void clearErrors() {
     _errorTitle = null;
     _errorDescription = null;
     _errorDate = null;
-    _errorTime = null;
+    _errorStartTime = null;
+    _errorEndTime = null;
     _errorLocal = null;
   }
 
+  // Use Cases
+  // Add Task
   Future<int> addTask(Task task) async {
     _setLoading(true);
 
@@ -72,6 +87,7 @@ class TasksProvider with ChangeNotifier {
     }
   }
 
+  // Delete Task
   Future<int> deleteTask(int? id) async {
     _setLoading(true);
 
@@ -84,6 +100,7 @@ class TasksProvider with ChangeNotifier {
     }
   }
 
+  // Update Task
   Future<int> updateTask(Task task) async {
     _setLoading(true);
 
@@ -96,6 +113,7 @@ class TasksProvider with ChangeNotifier {
     }
   }
 
+  // Get All Tasks
   Future<List<Task>> getAllTasks(int uid) async {
     _setInitialized(false);
 

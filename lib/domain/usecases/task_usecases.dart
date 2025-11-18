@@ -1,12 +1,15 @@
 import 'package:to_do_list/domain/entities/task.dart';
 import 'package:to_do_list/domain/repositories/task_repository.dart';
 
-// Task Use Cases
 class TaskUseCases {
   // Constructor
   const TaskUseCases({ required this.repository });
   final TaskRepository repository;
 
+  // Validations
+  String? validateEmpty(String name, String value) => value.isEmpty ? "$name cannot be blank" : null;
+
+  // Repository
   // Add Task
   Future<int> addTask(Task task) async {
     try {
@@ -35,7 +38,7 @@ class TaskUseCases {
   }
 
   // Get All Tasks
-  Future<List<Task>> getAllTasks(int? uid) async {
+  Future<List<Task>> getAllTasks(int uid) async {
     try {
       return await repository.getAllTasks(uid);
     } catch(e) {

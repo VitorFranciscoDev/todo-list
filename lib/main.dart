@@ -10,11 +10,11 @@ import 'package:to_do_list/infrastructure/repositories/sqlite_auth_repository.da
 import 'package:to_do_list/infrastructure/repositories/sqlite_task_repository.dart';
 
 void main() {
-  final SQLiteAuthRepository authRepository = SQLiteAuthRepository();
-  final AuthUseCases authUseCases = AuthUseCases(repository: authRepository);
+  final authRepository = SQLiteAuthRepository();
+  final authUseCases = AuthUseCases(repository: authRepository);
 
-  final SQLiteTaskRepository taskRepository = SQLiteTaskRepository();
-  final TaskUseCases taskUseCases = TaskUseCases(repository: taskRepository);
+  final taskRepository = SQLiteTaskRepository();
+  final taskUseCases = TaskUseCases(repository: taskRepository);
   
   runApp(
     MultiProvider(
