@@ -18,7 +18,6 @@ class SQLiteAuthRepository implements AuthRepository {
         whereArgs: [email, password],
       );
 
-      // Return the User [Can be Null]
       return User.fromMap(user.first);
     } catch(e) {
       throw Exception("Error in Login SQLite Auth Repository: $e");
@@ -37,7 +36,6 @@ class SQLiteAuthRepository implements AuthRepository {
         whereArgs: [email],
       );
 
-      // Return the User [Can be Null]
       return User.fromMap(user.first);
     } catch(e) {
       throw Exception("Error in Get User By Email SQLite Auth Repository: $e");
@@ -50,7 +48,6 @@ class SQLiteAuthRepository implements AuthRepository {
     try {
       final db = await database.database;
 
-      // Return the Index of New User
       return await db.insert('users', user.toMap());
     } catch(e) {
       throw Exception("Error in Add User SQLite Auth Repository: $e");
@@ -63,7 +60,6 @@ class SQLiteAuthRepository implements AuthRepository {
     try {
       final db = await database.database;
 
-      // Return the Number of Rows Affected
       return await db.delete(
         'users',
         where: 'id = ?',
@@ -80,7 +76,6 @@ class SQLiteAuthRepository implements AuthRepository {
     try {
       final db = await database.database;
 
-      // Return the Number of Rows Affected
       return await db.update(
         'users', 
         user.toMap(),

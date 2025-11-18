@@ -7,9 +7,9 @@ class TasksTable {
       CREATE TABLE tasks (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         uid INTEGER NOT NULL,
-        color TEXT NOT NULL,
         title TEXT NOT NULL,
         description TEXT NOT NULL,
+        date TEXT NOT NULL,
         startTime TEXT,
         endTime TEXT,
         local TEXT,

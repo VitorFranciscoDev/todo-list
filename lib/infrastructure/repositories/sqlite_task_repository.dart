@@ -12,7 +12,6 @@ class SQLiteTaskRepository implements TaskRepository {
     try {
       final db = await database.database;
 
-      // Return the Index of new Task
       return await db.insert('tasks', task.toMap());
     } catch(e) {
       throw Exception("Error in Add Task SQLite Task Repository: $e");
@@ -25,7 +24,6 @@ class SQLiteTaskRepository implements TaskRepository {
     try {
       final db = await database.database;
 
-      // Return the Number of Rows Affected
       return await db.delete(
         'tasks',
         where: 'id = ?',
@@ -42,7 +40,6 @@ class SQLiteTaskRepository implements TaskRepository {
     try {
       final db = await database.database;
 
-      // Return the Number of Rows Affected
       return await db.update(
         'tasks', 
         task.toMap(),
@@ -66,7 +63,6 @@ class SQLiteTaskRepository implements TaskRepository {
         whereArgs: [uid],
       );
 
-      // Return All User's Tasks
       return tasks.map((task) => Task.fromMap(task)).toList();
     } catch(e) {
       throw Exception("Error in Get All Tasks SQLite Task Repository: $e");

@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:to_do_list/domain/entities/user.dart';
 import 'package:to_do_list/domain/usecases/auth_usecases.dart';
 
 class AuthProvider with ChangeNotifier {
   // Constructor
-  AuthProvider({ required this.useCases });
+  AuthProvider({ required this.useCases }) { loadUser(); }
   final AuthUseCases useCases;
+
+  static const userKey = "user";
 
   // App's User
   User? _user;
@@ -72,13 +77,41 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> loadUser() async {
+    _setInitialized(true);
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final userData = prefs.getString(userKey);
+
+      if(userData != null) {
+        final userMap = jsonDecode(userData);
+        _user = User.fromMap(userMap);
+      }
+    } catch(e) {
+      _user = null;
+    } finally {
+      _setInitialized(false);
+    }
+  }
+
   // Login in App
   Future<User?> login(String email, String password) async {
     _setLoading(true);
     
     try {
-      _user = await useCases.login(email, password);
-      return _user;
+      final loginUser = await useCases.login(email, password);
+      
+      if(loginUser != null) {
+        _user = loginUser;
+
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString(userKey, jsonEncode(loginUser.toMap()));
+
+        return _user;
+      }
+
+      return null;
     } catch(e) {
       return null;
     } finally {

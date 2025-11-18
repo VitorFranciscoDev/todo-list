@@ -67,7 +67,7 @@ class _TodayScreenState extends State<TodayScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final tasks = context.watch<TasksProvider>().tasks;
+    final tasks = context.watch<TasksProvider>().todayTasks;
     final now = DateTime.now();
 
     return Stack(
@@ -97,7 +97,7 @@ class _TodayScreenState extends State<TodayScreen> {
         
               Expanded(
                 child: ListView.separated(
-                  itemCount: 1,
+                  itemCount: tasks.length,
                   separatorBuilder: (context, index) => Divider(color: Colors.grey[400]),
                   itemBuilder: (context, index) {
                     final task = tasks[index];
@@ -121,7 +121,7 @@ class _TodayScreenState extends State<TodayScreen> {
                             
                             const SizedBox(width: 30),
 
-                            Text("AAAAAAAAAAAAAaa"),
+                            Text(task.title),
                           ],
                         ),
                       ],
